@@ -24,6 +24,7 @@ jobs:
                   pip install furo
                   pip install sphinx_tabs
                   pip install sphinx_togglebutton
+                  pip install sphinxcontrib-details-directive
 
             - name: Run shell command
               run: |
