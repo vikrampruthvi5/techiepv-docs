@@ -1,0 +1,896 @@
+React JS Learning
+=================
+
+JAVA Script Basics
+------------------
+
+Theory of JS
+*************
+- Linking js in html header vs body matters. If the link is in header, the script is loaded as soon as the page is loaded and it might not be available to elements in body. And thats why its usually done in body
+
+.. hint::
+
+    Adding defer attribute to the script tag in header will make sure that the script is loaded after the page is loaded and is available to the elements in body.
+
+.. code-block:: html
+
+    <script src="app.js" defer></script>
+
+- Setting ``type=module`` in script tag will make sure that the script is loaded as a module and can be imported in other js files. 
+  Having this will unlock the use of import and export in js files. Which means we can import and export functions, variables, objects etc from one file to another js file.
+
+.. code-block:: html
+
+    <script src="app.js" type="module"></script>
+
+import/export in React
+***********************
+- Import and export are enabled in JS by using ``type=module`` in script tag.
+- In React, we can import and export components, functions, variables, objects etc from one file to other.
+
+.. details:: Import and Export in JS
+
+    .. code-block:: js
+
+        //exporting
+        export let name = "John";
+
+        //importing
+        import {name} from './file.js';
+        console.log(name); //John
+
+    - We can also use default keyword to export a single value from a file. This is useful when we want to export a single value from a file.
+
+.. details:: Using default keyword to export a single value from a file
+
+    .. code-block:: js
+
+        //exporting
+        export default function() {
+            console.log("Hello");
+        }
+
+        //importing
+        import anyName from './file.js';
+        anyName(); //Hello
+
+.. details:: Using default keyword to export a single value from a file
+
+    .. code-block:: js
+
+        //exporting
+        export default "asd;lflasdfl"
+
+        //importing
+        import anyName from './file.js';
+        console.log(anyName); //asd;lflasdfl
+
+    .. caution:: 
+
+        There can only be one default vaule exported from a file.
+
+    - we can also import and export multiple values from a file. This is useful when we want to import and export multiple values from a file.
+
+.. details:: Importing and exporting multiple values from a file
+
+    .. code-block:: js
+
+        //exporting
+        export let name = "John";
+        export let age = 25;
+
+        //importing
+        import {name, age} from './file.js';
+        console.log(name); //John
+        console.log(age); //25
+
+    - We can also use ``*`` to import all the values from a file. This is useful when we want to import all the values from a file.
+
+.. details:: Using * to import all the values from a file
+
+    .. code-block:: js
+
+        //exporting
+        export let name = "John";
+        export let age = 25;
+
+        //importing
+        import * as values from './file.js';
+        console.log(values.name); //John
+        console.log(values.age); //25
+
+    - We can also use ``as`` to import values from a file. This is useful when we want to import values from a file with a different name.
+
+.. details:: Using as to import values from a file
+
+    .. code-block:: js
+
+        //exporting
+        export let name = "John";
+        export let age = 25;
+
+        //importing
+        import {name as n, age as a} from './file.js';
+        console.log(n); //John
+        console.log(a); //25
+
+-----
+
+Functions in JS
+***************
+
+.. code-block:: js
+
+    function App() {
+        console.log("Hello");
+    }
+
+    // Function call
+    App();
+
+- In the above code, we have created a function called App. This function returns a div with h1 tag. This is a function component.
+
+.. caution:: 
+
+    The function name should start with a capital letter. This is a convention in React. This is not a rule but a convention.
+
+.. code-block:: js
+
+    function app(message, uname) {
+        console.log(message, uname);
+    }
+
+    // Function call
+    app("Hello", "John");
+
+Arrow or Anonymous Functions in JS
+***********************************
+
+- Anonymous functions are functions that are not named. They are also called arrow functions. They are used to write small and concise functions. They are used to write functions in a single line.
+- They are used to write functions that are not reusable. They are used to write functions that are not used in multiple places.
+
+.. code-block:: js
+
+    const App = () => {
+        console.log("Hello");
+    }
+
+    // Function call
+    App();
+
+Arrow functions with parameters
+
+.. code-block:: js
+
+    const app = (message, uname) => {
+        console.log(message, uname);
+    }
+
+    // Function call
+    app("Hello", "John");
+
+Arrow functions without name
+
+.. code-block:: js
+
+    message, uname => {
+        console.log(message, uname);
+    }
+
+    // Function call
+    app("Hello", "John");
+
+Returning object from arrow function
+
+.. code-block:: js
+
+    // Invalid code
+    message => {message: message}
+
+    // Valid code
+    message => ({message: message})
+
+The above valid code tells the js that the curly braces are not for the function body but for the object.
+
+Objects in JS
+**************
+
+.. tabs::
+
+    .. tab:: Object Creation
+
+        .. code-block:: js
+
+            const person = {
+                name: "John",
+                age: 25
+            }
+
+            console.log(person.name); //John
+            console.log(person.age); //25
+
+    .. tab:: Functions in objects
+
+        .. code-block:: js
+
+            const person = {
+                name: "John",
+                age: 25,
+                greet: function() {
+                    console.log("Hello");
+                }
+            }
+
+            person.greet(); //Hello
+
+    .. tab:: arrow functions in objects
+
+        .. code-block:: js
+
+            const person = {
+                name: "John",
+                age: 25,
+                greet: () => {
+                    console.log("Hello");
+                }
+            }
+
+            person.greet(); //Hello
+
+.. tabs::
+
+    .. tab:: this keyword in objects
+
+        .. code-block:: js
+
+            const person = {
+                name: "John",
+                age: 25,
+                greet: function() {
+                    console.log("Hello", this.name);
+                }
+            }
+
+            person.greet(); //Hello John
+
+    .. tab:: class as blueprint
+
+        .. code-block:: js
+
+            class Person {
+                name = "John";
+                age = 25;
+
+                greet() {
+                    console.log("Hello", this.name);
+                }
+            }
+
+            const person = new Person();
+            person.greet(); //Hello John
+
+    .. tab:: constructor in class with parameters
+
+        .. code-block:: js
+
+            class Person {
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                }
+
+                greet() {
+                    console.log("Hello", this.name);
+                }
+            }
+
+            const person = new Person("John", 25);
+            person.greet(); //Hello John
+
+Arrays in JS
+*************
+
+.. tabs::
+
+    .. tab:: Array Functions
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            for (let hobby of hobbies) {
+                console.log(hobby);
+            }
+
+            hobbies.map(hobby => {
+                console.log(hobby);
+            });
+
+            hobbies.push("Reading");
+            console.log(hobbies); //["Sports", "Cooking", "Reading"]
+
+            hobbies.pop();
+            console.log(hobbies); //["Sports", "Cooking"]
+
+            hobbies.splice(0, 1);
+            console.log(hobbies); //["Cooking"]
+
+            hobbies.splice(0, 0, "Reading");
+            console.log(hobbies); //["Reading", "Cooking"]
+
+            hobbies.splice(1, 0, "Sports");
+            console.log(hobbies); //["Reading", "Sports", "Cooking"]
+
+            hobbies.findIndex((iteam) => return iteam === "Cooking"); // Returns True
+
+            // Add something to every value in the Array
+            const newHobbies = hobbies.map(hobby => {
+                return "Hobby: " + hobby;
+            });
+            // or
+            const newHobbies = hobbies.map(hobby => "Hobby: " + hobby);
+
+            console.log(newHobbies); //["Hobby: Reading", "Hobby: Sports", "Hobby: Cooking"]
+        
+    .. tab:: Return as object
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            const newHobbies = hobbies.map(hobby => {
+                return {hobby: hobby};
+            });
+
+            console.log(newHobbies); //[{hobby: "Sports"}, {hobby: "Cooking"}]
+
+    .. tab:: Return obj & index
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            const newHobbies = hobbies.map((hobby, index) => {
+                return {hobby: hobby, index: index};
+            });
+
+            console.log(newHobbies); //[{hobby: "Sports", index: 0}, {hobby: "Cooking", index: 1}]
+    
+    .. tab:: Return obj & kv pair
+
+        .. code-block:: js
+
+            function transformToObjects(numberArray) {
+                // Todo: Add your logic
+                // should return an array of objects
+                return numberArray.map((number) => ({"val" : number}));
+            }
+
+
+
+- map is very ueful as you use it frequenctly especially when working to populate lists in html
+
+
+Destructuring Array and Objects
+********************************
+
+.. tabs::
+
+    .. tab:: Destructuring Array
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            const [hobby1, hobby2] = hobbies;
+            console.log(hobby1, hobby2); //Sports Cooking
+
+    .. tab:: Destructuring Object
+
+        .. code-block:: js
+
+            const {name: uesrname, age: age} = {
+                name: "John",
+                age: 25
+            }
+
+            console.log(name, age); //John 25
+
+Spread Operator in JS
+*******************************
+
+.. tabs::
+
+    .. tab:: Spread Operator
+
+        ... is a spread operator that is used to combine multiple arrays.
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            const newHobbies = ["Reading"];
+            const copiedArray = [...hobbies, ...newHobbies];
+            console.log(copiedArray); //["Sports", "Cooking", "Reading"]
+
+    .. tab:: Spread Operator with Objects
+
+        .. code-block:: js
+
+            const person = {
+                name: "John",
+                age: 25
+            }
+
+            const copiedPerson = {...person};
+            console.log(copiedPerson); //{name: "John", age: 25}
+
+-----
+
+IF condition in JS
+******************
+
+.. tabs::
+
+    .. tab:: IF condition
+
+        .. code-block:: js
+
+            const age = 25;
+            if (age > 20) {
+                console.log("You are an adult");
+            }
+
+    .. tab:: IF-ELSE condition
+
+        .. code-block:: js
+
+            const age = 25;
+            if (age > 20) {
+                console.log("You are an adult");
+            } else {
+                console.log("You are not an adult");
+            }
+
+    .. tab:: IF-ELSE-IF condition
+
+        .. code-block:: js
+
+            const age = 25;
+            if (age > 20) {
+                console.log("You are an adult");
+            } else if (age === 20) {
+                console.log("You are 20 years old");
+            } else {
+                console.log("You are not an adult");
+            }
+
+    .. tab:: Ternary Operator
+
+        .. code-block:: js
+
+            const age = 25;
+            age > 20 ? console.log("You are an adult") : console.log("You are not an adult");
+
+Loops in JS
+************
+
+.. tabs::
+
+    .. tab:: For Loop
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            for (let hobby of hobbies) {
+                console.log(hobby);
+            }
+
+    .. tab:: While Loop
+
+        .. code-block:: js
+
+            let counter = 0;
+            while (counter < 3) {
+                console.log(counter);
+                counter++;
+            }
+
+    .. tab:: Do-While Loop
+
+        .. code-block:: js
+
+            let counter = 0;
+            do {
+                console.log(counter);
+                counter++;
+            } while (counter < 3);
+
+    .. tab:: For Loop with Break
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            for (let hobby of hobbies) {
+                if (hobby === "Cooking") {
+                    break;
+                }
+                console.log(hobby);
+            }
+
+    .. tab:: For Loop with Continue
+
+        .. code-block:: js
+
+            const hobbies = ["Sports", "Cooking"];
+            for (let hobby of hobbies) {
+                if (hobby === "Cooking") {
+                    continue;
+                }
+                console.log(hobby);
+            }
+
+-----
+
+React Basics
+------------
+
+Theory of React
+****************
+- React is a library for building user interfaces. It is not a framework. It is used to build single page applications. It is used to build reusable UI components. It is used to build complex UIs from small and isolated pieces of code called components.
+- React unlike regular development, has build process that converts the code into a format that the browser can understand. This is done using a tool called Babel. Babel converts the modern js code into a format that the browser can understand.
+- You will not find any html in react. Instead you will find jsx. Jsx is a syntax extension for js.
+- In the browser if you observe the code, you will not see any script linking and html code is also not visible as REACT is used to build single page applications.
+- The code you write is transformed. The script files are created, injected into the html code by React leeting you enjoy the functionality.
+- You will not see raw js code written by developers as React uses JSX. 
+
+.. hint:: React uses build process for two reasons. 
+          1. JSX is a syntax extension for js. It is not a template language. It is a syntax extension for js.
+          2. The code we write while development is not production ready which means its not optimized (eg. minified). 
+
+- Node.js is required to run the build process. node provides the necessary tools to perform build process. 
+
+Create new react project
+************************
+
+.. tabs::
+
+    .. tab:: New project
+
+        .. code-block:: bash
+
+            $ npx create-react-app my-app
+
+    .. tab:: Start project
+
+        .. code-block:: bash
+
+            $ cd my-app
+            $ npm start
+
+    .. tab:: Build project
+
+        .. code-block:: bash
+
+            $ npm run build
+
+            # To run tests
+            $ npm run test
+
+    .. tab:: Eject project
+
+        .. code-block:: bash
+
+            $ npm run eject
+
+- npx is a package runner tool that comes with npm 5.2+ and higher. It is used to execute packages. It is used to execute packages without installing them globally. It is used to execute packages without installing them locally
+
+Using vite
+**********
+
+.. tabs::
+
+    .. tab:: Install vite
+
+        .. code-block:: bash
+
+            $ npm install -g create-vite
+
+    .. tab:: Create new project
+
+        .. code-block:: bash
+
+            $ create-vite my-app
+
+    .. tab:: Start project
+
+        .. code-block:: bash
+
+            $ cd my-app
+            $ npm start
+
+    .. tab:: Build project
+
+        .. code-block:: bash
+
+            $ npm run build
+
+    .. tab:: Eject project
+
+        .. code-block:: bash
+
+            $ npm run eject
+
+Using Vite to start the project in other fashion.
+
+.. tabs::
+    
+    .. tab:: Create project
+
+        .. code-block:: bash
+
+            $ npm create vite@latest myFirstProject
+
+            # Or pass template directly
+            $ npm create vite@latest myFirstProject --template react
+        
+    .. tab:: Start project
+
+        .. code-block:: bash
+
+            $ cd myFirstProject
+            $ npm install
+    
+    .. tab:: Run dev server
+            
+        .. code-block:: bash
+    
+            $ npm run dev
+
+    .. tab:: Build project
+
+        .. code-block:: bash
+
+            $ npm run build
+
+Folder Structure
+****************
+
+.. image:: _static/images/react_project_folders.png
+    :alt: React Project Folders
+    :align: left
+    :width: 300px
+
+.. list-table::
+
+    * - Folder/File
+      - Description
+    * - public
+      - This folder contains the public files. This folder contains the files that are not transformed by the build process. This folder contains the files that are not optimized by the build process. This folder contains the files that are not minified by the build process. This folder contains the files that are not bundled by the build process. This folder contains the files that are not transpiled by the build process. This folder contains the files that are not converted to a format that the browser can understand by the build process.
+    * - src
+      - This folder contains the source files. This folder contains the files that are transformed by the build process. This folder contains the files that are optimized by the build process. This folder contains the files that are minified by the build process. This folder contains the files that are bundled by the build process. This folder contains
+
+Linter & Formatter config
+*************************
+
+.. caution:: 
+    
+    Add linter and formatter config
+
+-----
+
+Create custom component
+-----------------------
+
+.. tabs::
+
+    .. tab:: Create component
+
+        .. code-block:: jsx
+
+            function Header(){
+                return 
+                    <div>
+                        <h1>Hello</h1>; // Use () only if there is multiline component. Ex: multiple tags
+                    </div>
+            }
+
+        .. note:: 
+
+            use Cmd + / to to autoformat your code. 
+            
+
+    .. tab:: Use component
+
+        .. code-block:: jsx
+
+            import React from 'react';
+            import App from './App';
+
+            function App() {
+                return (
+                    <>
+                        <Header />
+                        // Remaining code... 
+                    </>
+                );
+            }
+
+            export default App;
+
+Dynamic content in React
+************************
+
+.. tabs::
+
+    .. tab:: Create component
+
+        .. code-block:: jsx
+
+            fonst content = ["Crucial", "Important", "Essential", "Vital"];
+
+            function getRandomContent(max) {
+            return Math.floor(Math.random() * max);
+            }
+
+            function Header() {
+                return (
+                    <div>
+                    <h1>{content[getRandomContent(4)]}</h1>
+                    </div>
+                );
+            }
+
+        .. note:: 
+
+            use Cmd + / to to autoformat your code. 
+            
+
+    .. tab:: Use component
+
+        .. code-block:: jsx
+
+            import React from 'react';
+            import App from './App';
+
+            function App() {
+                return (
+                    <>
+                        <Header />
+                        // Remaining code... 
+                    </>
+                );
+            }
+
+            export default App;
+
+.. note:: 
+
+    When using dynamic content, use ``{}`` to wrap the content. And donot use ``""``. 
+
+Importing images
+****************
+
+- To import images in React, we can use the import statement. We can use the import statement to import images in React
+- Directly referencing the image file in the html tag is not recommended as you might miss the image during build. 
+
+.. code-block:: jsx
+
+    import React from 'react';
+    import App from './App';
+    import logo from './logo.svg';
+
+    function App() {
+        return (
+            <>
+                <img src={logo} alt="logo" />
+                // Remaining code... 
+            </>
+        );
+    }
+
+    export default App;
+
+Props in React
+**************
+
+- Props are used to pass data from parent component to child
+
+.. code-block:: jsx
+
+    import { useState } from "react";
+    import react_img from "./assets/react.svg";
+    import "./App.css";
+
+    const content = ["Crucial", "Important", "Essential", "Vital"];
+
+    function getRandomContent(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function Header() {
+        return (
+            <div>
+            <img src={react_img} alt="react logo" />
+            <h1>{content[getRandomContent(4)]}</h1>
+            </div>
+        );
+    }
+
+    function CoreComponent(props){
+        return (
+            <div>
+            <h2>{props.title}</h2>
+            <p>{props.description}</p>
+            </div>
+        );
+    }
+
+    function App() {
+        const [count, setCount] = useState(0);
+
+        return (
+            <>
+            <Header />
+            <CoreComponent title="Vite" description="Build tooling for the web" />
+            <h1>Vite + React</h1>
+            <div className="card">
+                <button onClick={() => setCount((count) => count + 1)}>
+                count is {count}
+                </button>
+                <p>
+                Edit <code>src/App.jsx</code> and save to test HMR
+                </p>
+            </div>
+            <p className="read-the-docs">
+                Click on the Vite and React logos to learn more
+            </p>
+            </>
+        );
+    }
+
+    export default App;
+
+Here, below code refers to using props in React. 
+
+.. code-block:: jsx
+
+    function CoreComponent(props){
+        return (
+            <div>
+            <h2>{props.title}</h2>
+            <p>{props.description}</p>
+            </div>
+        );
+    }
+
+    function App() {
+        const [count, setCount] = useState(0);
+
+        return (
+            <>
+            <Header />
+            <CoreComponent title="Vite" description="Build tooling for the web" />
+            </>
+        );
+    }
+
+Getting data from files
+***********************
+
+- Instead of hardcoding values in jsx, we can get the data from a file. We can get the data from a file and use it in jsx. We can get the data from a file and use it in React.
+- We can use the import statement to import the data from a file. We can use the import statement to import the data from a file and use it in React.
+
+.. code-block:: jsx
+
+    import { CORE_CONCEPTS } from "./data.js";
+
+- In order for the CORE_CONCEPTS to be imported, it should be exported from the file.
+
+.. code-block:: jsx
+
+    export const CORE_CONCEPTS = [
+        {
+            title: "Vite",
+            description: "Build tooling for the web",
+        },
+        {
+            title: "React",
+            description: "A JavaScript library for building user interfaces",
+        },
+    ];
