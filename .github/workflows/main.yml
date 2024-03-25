@@ -23,6 +23,7 @@ jobs:
                   pip install sphinx
                   pip install furo
                   pip install sphinx_tabs
+                  pip install sphinx_togglebutton
 
             - name: Run shell command
               run: |
