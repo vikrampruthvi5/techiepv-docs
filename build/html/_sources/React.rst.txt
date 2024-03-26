@@ -880,7 +880,7 @@ Getting data from files
 
     import { CORE_CONCEPTS } from "./data.js";
 
-- In order for the CORE_CONCEPTS to be imported, it should be exported from the file.
+- In order for the CORE_CONCEPTS to be imported, it should be exported from the file called ``data.js``.
 
 .. code-block:: jsx
 
@@ -894,3 +894,7 @@ Getting data from files
             description: "A JavaScript library for building user interfaces",
         },
     ];
+
+.. caution:: 
+
+    The above method is tedious. This is test to check the github actions... 

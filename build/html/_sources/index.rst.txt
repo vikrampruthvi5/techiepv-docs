@@ -20,5 +20,3 @@ Contents
    OpenSSL
    React
    aws_cli
-
-
